@@ -481,14 +481,14 @@ bias_formation:
 diagnostic_data:
   available: true
   edge_strength: 0.1  # not yet gathered
-  time_to_strengthen: 20_seconds
+  time_to_strengthen: 20 seconds
 
 action_pattern:
   match_strength: 0.85
   confidence: "high" # false confidence
 
 timing:
-  action_at: 3_seconds
+  action_at: 3 seconds
   data_strength_at_action: 0.1
   outcome: pattern_based_action_fails
 ```
