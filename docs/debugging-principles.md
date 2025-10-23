@@ -2,7 +2,72 @@
 
 General debugging guidelines derived from real debugging sessions.
 
-## Core Principle: Escalate Verbosity on Errors
+## Core Principle 1: When Errors Occur, SLOW DOWN & THINK
+
+**Rule:** When you encounter an error, STOP before trying another command.
+
+### The STOP Protocol
+
+```
+ERROR DETECTED
+    ↓
+STOP  - Don't immediately run another command
+    ↓
+READ  - Read the entire error message carefully
+    ↓
+THINK - What is this error actually saying?
+    ↓
+PLAN  - What diagnostic will reveal the cause?
+    ↓
+EXECUTE ONE diagnostic step with verbosity
+    ↓
+READ the output before proceeding
+```
+
+### Why This Matters
+
+**Observed pattern from real sessions:**
+- Error occurs at 17:23:15
+- Next command at 17:23:18 (3 seconds later)
+- Another command at 17:23:22 (4 seconds later)
+- User intervention: "you just hit two big errors and aren't trying to diagnose but are still issuing commands"
+
+**Rapid-fire commands indicate:**
+- Not reading error messages
+- Guessing instead of diagnosing
+- About to enter trial-and-error loop
+- Missing obvious clues
+
+**Anastrophex Detection:**
+```python
+def detect_rushing_after_error():
+    """Detect when commands are issued too quickly after errors."""
+    if time_since_error < 10_seconds:
+        if new_command_issued and not diagnostic_command:
+            return True  # Rushing, not diagnosing
+    return False
+```
+
+**Intervention:**
+```
+⚠️ Error just occurred - slow down
+
+You issued a command 3 seconds after an error.
+This suggests you didn't fully read the error message.
+
+Before proceeding:
+1. Read the error message completely
+2. Run with -v flag to see more
+3. Understand what failed
+4. Then decide on fix
+
+Rushing → trial-and-error loop
+Pausing → targeted fix
+```
+
+---
+
+## Core Principle 2: Escalate Verbosity on Errors
 
 **Rule:** Once you hit an error, switch to verbose mode on ALL subsequent commands.
 

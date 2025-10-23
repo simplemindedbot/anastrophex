@@ -2,6 +2,111 @@
 
 How anastrophex detects violations of AI_CREDO principles and provides interventions.
 
+## Core Principle 0: When Errors Occur, SLOW DOWN & THINK
+
+**AI_CREDO Rule:** "After an error, pause and diagnose before acting."
+
+### Detection Signals
+
+```python
+# Rapid command execution after error
+if error_occurred_at(timestamp):
+    and next_command_at(timestamp + seconds < 10)
+    and not is_diagnostic_command()
+    → VIOLATION: Rushing instead of diagnosing
+
+# Multiple commands without reading output
+if commands_issued >= 2:
+    and time_since_error < 30_seconds
+    and not verbose_mode_enabled
+    → VIOLATION: Not reading error messages
+
+# Same fix attempted immediately
+if error_repeated:
+    and same_command_retried_immediately
+    → VIOLATION: Not learning from failure
+```
+
+### Interventions
+
+```
+⚠️ Rapid-fire commands detected after error
+
+AI_CREDO Principle 0: SLOW DOWN & THINK
+
+You issued 2 commands in 6 seconds after an error.
+This is trial-and-error behavior.
+
+Required pause protocol:
+1. STOP - Don't issue another command yet
+2. READ - Read the full error message
+3. THINK - What is it telling you?
+4. DIAGNOSE - Add -v flag to see more
+5. UNDERSTAND - Then attempt fix
+
+Time between error and next command should be:
+- Minimum: 10 seconds (time to read error)
+- Recommended: 30+ seconds (time to diagnose)
+
+"Speed" in debugging = understanding quickly
+Not = trying things quickly
+```
+
+### Pattern Examples from Our Sessions
+
+**Anastrophex venv debugging:**
+- ❌ Error at 17:23:15, next command at 17:23:18 (3 seconds)
+- ❌ Another command at 17:23:22 (4 seconds later)
+- ❌ User intervention: "you just hit two big errors and aren't trying to diagnose"
+- ✓ Should have: STOP, read error, add -v, understand, then act
+
+**Environment mismatch warning:**
+- ❌ Got warning twice, ignored both times, kept going
+- ❌ Continued for 20+ minutes with wrong environment
+- ✓ Should have: STOP after first warning, investigate immediately
+
+### 5W+1H Mapping
+
+- WHAT: When error occurs, first action is STOP, not another command
+- HOW: Use STOP → READ → THINK → DIAGNOSE → UNDERSTAND protocol
+- WHY: Rushing causes trial-and-error loops and wastes time
+
+### Timing Detection
+
+```python
+class ErrorTimingMonitor:
+    """Monitor timing between errors and subsequent actions."""
+
+    def __init__(self):
+        self.last_error_time: Optional[float] = None
+        self.commands_since_error: int = 0
+
+    def on_error(self, timestamp: float) -> None:
+        self.last_error_time = timestamp
+        self.commands_since_error = 0
+
+    def on_command(self, timestamp: float) -> Optional[str]:
+        if self.last_error_time is None:
+            return None
+
+        time_since_error = timestamp - self.last_error_time
+        self.commands_since_error += 1
+
+        # First command after error
+        if self.commands_since_error == 1:
+            if time_since_error < 10:
+                return "rushing-after-error"
+
+        # Multiple commands rapidly
+        if self.commands_since_error >= 2:
+            if time_since_error < 30:
+                return "rapid-fire-commands"
+
+        return None
+```
+
+---
+
 ## Core Principle 1: Verify Before Acting
 
 **AI_CREDO Rule:** "Never guess when you can check."

@@ -2,6 +2,43 @@
 
 Systematic approach to debugging that prevents trial-and-error loops by asking the right questions in order.
 
+## Core Rule: When Errors Occur, SLOW DOWN & THINK
+
+**Before doing anything after an error:**
+
+```
+⚠️ ERROR OCCURRED
+
+STOP  → Don't immediately try another command
+READ  → Read the error message completely
+THINK → Consider what it's actually telling you
+PLAN  → Decide on diagnostic approach (5W+1H)
+THEN  → Execute one diagnostic step at a time
+```
+
+**Anti-pattern to avoid:**
+```
+Error → Try fix 1 → Error → Try fix 2 → Error → Try fix 3...
+[Rapid-fire attempts without understanding]
+```
+
+**Correct pattern:**
+```
+Error → STOP → Read error → Add -v → Read verbose output → Understand → Fix
+[Deliberate, diagnostic approach]
+```
+
+This principle applies to ALL dimensions of 5W+1H. Rushing leads to:
+- Skipping important diagnostic output
+- Missing obvious clues in error messages
+- Repeating failed approaches
+- Not noticing warnings
+- Trial-and-error loops
+
+**Slow down. One step at a time. Understand before acting.**
+
+---
+
 ## Framework Overview
 
 When a command fails or behavior is unexpected, work through these questions systematically:
