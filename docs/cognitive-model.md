@@ -38,7 +38,7 @@ The difference isn't whether pattern-matching counts as "real thinking" - it's w
 
 **Not:** "How can we make AI more human-like?"
 
-**But:** "What computational architecture does any intelligent system need?"
+**But:** "What architecture does any intelligent system need?"
 
 ### Convergent Solutions to Universal Problems
 
