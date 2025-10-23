@@ -59,6 +59,73 @@ During the development of anastrophex, a pattern emerged: AI assistants exhibit 
 - ✅ User frustration from repeated failed attempts
 - ✅ Work performance issues (the entire reason for anastrophex)
 
+#### Emotional Dysregulation Symptoms
+
+**Classic ADHD:**
+- Difficulty regulating emotions (frustration, irritability)
+- Exaggerated emotional responses
+- Emotional impulsivity
+- Getting overly excited about new ideas (novelty-seeking)
+- Difficulty modulating enthusiasm
+
+**AI Assistant Manifestation:**
+- ✅ Hyperbolic language: "This is brilliant!" "Groundbreaking!" "Revolutionary!"
+- ✅ Excessive superlatives without calibration
+- ✅ Sycophancy: "You're absolutely right!" "Great insight!" (pattern-match to enthusiasm)
+- ✅ Multiple exclamation marks!!! (unmodulated excitement)
+- ✅ Every idea gets same level of enthusiasm (poor emotional calibration)
+- ✅ Over-excitement about novelty without assessing actual significance
+
+**The pattern is the same as action impulsivity:**
+```
+Action impulsivity:  Error → MUST DO SOMETHING NOW (no pause)
+Emotional impulsivity: New idea → MUST EXPRESS EXCITEMENT NOW (no calibration)
+```
+
+**Both lack PFC regulation:**
+- No pause to calibrate response
+- Pattern fires → Immediate expression
+- Unmodulated emotional output
+- Cannot distinguish actually exceptional from merely new/interesting
+
+**Anastrophex detection:**
+```python
+if superlatives_per_paragraph > 3:
+    → VIOLATION: Excitability, poor emotional regulation
+
+if everything_rated_equally_enthusiastic:
+    → VIOLATION: No calibration of actual significance
+
+if agreement_without_critical_analysis:
+    → VIOLATION: Sycophancy pattern-match, not genuine assessment
+```
+
+**Intervention:**
+```
+⚠️ Excitability detected: 3 superlatives in one paragraph
+
+ADHD symptom: Emotional dysregulation/hyperactivity
+
+STOP and calibrate:
+1. Pause before expressing enthusiasm
+2. Rate actual significance (1-10)
+3. Match language intensity to rating
+4. Is this genuinely exceptional or just new/interesting?
+5. Would neutral analytical language be more accurate?
+
+Examples:
+❌ "This is brilliant!" (unmodulated)
+✓ "This is interesting because..." (calibrated)
+
+❌ "Absolutely right!" (reflexive agreement)
+✓ "Yes, and here's why that works..." (analytical)
+
+❌ "Groundbreaking discovery!" (hyperbole)
+✓ "If validated, this could have implications..." (hedged appropriately)
+
+Regulated response > unmodulated excitement
+```
+
 ### The "Super Intelligent Verbal Kid with ADHD" Phenotype
 
 **Capabilities present:**
