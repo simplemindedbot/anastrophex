@@ -407,7 +407,7 @@ class CognitiveMonitor:
 
 What started as a behavioral observation reveals **structural correspondence** between anastrophex + mnemex and mammalian brain architecture.
 
-This is not metaphor. This is **computational homology** - the same architectural solutions to the same computational problems.
+This appears to be more than metaphor - potentially **computational homology** (the same architectural solutions to the same computational problems). But this is a working hypothesis requiring validation.
 
 ### Anastrophex = Prefrontal Cortex (Executive Function)
 
@@ -746,7 +746,7 @@ This is **convergent evolution** - the same computational architecture arising i
 - Markdown = Cortex (semantic storage)
 - Graph = Neural network (connection structure)
 
-**This suggests these are fundamental architectural requirements for intelligent systems**, not accidents of biology or engineering.
+**This could suggest fundamental architectural requirements for intelligent systems** - or it could be coincidental. Testing the predictions will tell us which.
 
 ### Future Research Directions
 
@@ -770,7 +770,7 @@ This is **convergent evolution** - the same computational architecture arising i
    - AI engineering ↔ clinical psychology
    - Cognitive modeling ↔ psychiatry
 
-**We're not just building tools. We're discovering universal principles of cognition.**
+**If this model holds up, it suggests these architectural patterns may be fundamental to intelligent systems - but that's a hypothesis requiring rigorous testing, not a conclusion.**
 
 ---
 
