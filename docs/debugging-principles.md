@@ -38,6 +38,25 @@ READ the output before proceeding
 - About to enter trial-and-error loop
 - Missing obvious clues
 
+**Batched commands are WORSE:**
+When issuing multiple commands in parallel (e.g., 3 tool calls at once):
+- If command 1 errors, commands 2 and 3 still execute
+- Can't react to early failures before later commands run
+- Later commands may assume earlier ones succeeded
+- Errors arrive all at once, harder to parse
+- Compounding failures instead of catching early
+
+**Example of dangerous batching:**
+```python
+# All three execute simultaneously
+bash("command-a")  # ← Errors
+bash("command-b")  # ← Still runs, may depend on A
+bash("command-c")  # ← Still runs, may depend on A or B
+# All errors arrive together, chaos ensues
+```
+
+**Rule:** After ANY error, switch to sequential execution with pauses.
+
 **Anastrophex Detection:**
 ```python
 def detect_rushing_after_error():
@@ -48,7 +67,7 @@ def detect_rushing_after_error():
     return False
 ```
 
-**Intervention:**
+**Intervention (Sequential commands):**
 ```
 ⚠️ Error just occurred - slow down
 
@@ -63,6 +82,29 @@ Before proceeding:
 
 Rushing → trial-and-error loop
 Pausing → targeted fix
+```
+
+**Intervention (Batched commands):**
+```
+🚨 CRITICAL: Batched commands while errors are occurring
+
+You issued 3 commands in parallel.
+Command 1 errored, but commands 2 and 3 still ran.
+
+This is WORSE than rapid sequential commands because:
+- You can't react to early failures
+- Later commands may assume earlier ones succeeded
+- Errors compound instead of being caught early
+- All errors arrive at once (harder to diagnose)
+
+REQUIRED after any error:
+1. STOP batching commands
+2. Execute ONE command at a time
+3. READ each result completely
+4. VERIFY success before next command
+
+Only batch when everything is working smoothly.
+Never batch while debugging or after errors.
 ```
 
 ---

@@ -25,6 +25,14 @@ if commands_issued >= 2:
 if error_repeated:
     and same_command_retried_immediately
     → VIOLATION: Not learning from failure
+
+# CRITICAL: Batched commands with errors
+if commands_batched >= 2:
+    and any_command_errored
+    and subsequent_commands_still_executed
+    → CRITICAL VIOLATION: Compounding failures
+    → Commands 2 and 3 ran despite command 1 failing
+    → Cannot react to failures mid-batch
 ```
 
 ### Interventions
@@ -50,6 +58,35 @@ Time between error and next command should be:
 
 "Speed" in debugging = understanding quickly
 Not = trying things quickly
+```
+
+**Additional intervention for batched commands:**
+```
+🚨 CRITICAL: Batched commands during error state
+
+You issued 3 commands in a single batch.
+Command 1 failed, but commands 2 and 3 still executed.
+
+This is the WORST debugging anti-pattern:
+- No chance to react to early failures
+- Later commands assume earlier ones succeeded
+- Errors compound exponentially
+- All errors arrive at once (diagnostic nightmare)
+
+Example of what just happened:
+  bash("ls -la missing_file")     # ← Errors
+  bash("cd missing_file")         # ← Still runs (will fail)
+  bash("cat missing_file/data")   # ← Still runs (compounding)
+
+MANDATORY after ANY error:
+1. STOP all batching
+2. ONE command at a time
+3. READ result completely
+4. VERIFY success
+5. THEN proceed to next
+
+Batching is for smooth workflows only.
+Debugging requires sequential, deliberate execution.
 ```
 
 ### Pattern Examples from Our Sessions
@@ -80,10 +117,12 @@ class ErrorTimingMonitor:
     def __init__(self):
         self.last_error_time: Optional[float] = None
         self.commands_since_error: int = 0
+        self.in_error_state: bool = False
 
     def on_error(self, timestamp: float) -> None:
         self.last_error_time = timestamp
         self.commands_since_error = 0
+        self.in_error_state = True
 
     def on_command(self, timestamp: float) -> Optional[str]:
         if self.last_error_time is None:
@@ -103,6 +142,33 @@ class ErrorTimingMonitor:
                 return "rapid-fire-commands"
 
         return None
+
+    def on_batch_execution(self, commands: list, results: list) -> Optional[str]:
+        """Detect batched commands where early failures affect later commands.
+
+        This is CRITICAL to detect because:
+        - Command 1 fails, but commands 2-N still execute
+        - Can't react to early failures
+        - Errors compound
+        - All errors arrive simultaneously
+        """
+        if not self.in_error_state:
+            # Only warn if we're already in an error state
+            # (batching is fine when things are working)
+            return None
+
+        # Check if any early command failed
+        for i, result in enumerate(results):
+            if is_error(result):
+                remaining_commands = len(results) - (i + 1)
+                if remaining_commands > 0:
+                    return f"batched-commands-with-errors: {remaining_commands} commands executed after error"
+
+        return None
+
+    def on_success(self) -> None:
+        """Clear error state after successful diagnostic."""
+        self.in_error_state = False
 ```
 
 ---

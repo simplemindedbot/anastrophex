@@ -35,6 +35,19 @@ This principle applies to ALL dimensions of 5W+1H. Rushing leads to:
 - Not noticing warnings
 - Trial-and-error loops
 
+**CRITICAL: Batched commands are even worse**
+
+When you issue multiple commands in parallel (e.g., 3 bash calls at once):
+- If command 1 errors, commands 2 and 3 STILL EXECUTE
+- No opportunity to react to early failures
+- Later commands may depend on earlier ones succeeding
+- Errors compound exponentially
+- All errors arrive simultaneously (diagnostic chaos)
+
+**Rule:** After ANY error, switch to ONE command at a time.
+
+Batching is for smooth workflows. Debugging requires sequential execution.
+
 **Slow down. One step at a time. Understand before acting.**
 
 ---
