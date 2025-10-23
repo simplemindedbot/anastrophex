@@ -414,17 +414,17 @@ The parallel to ADHD management strategies is direct:
 
 ### Intervention Points
 
-**1. Impulse Control (STOP protocol)**
+**1. Impulse Control (STOP Protocol)**
 - Detect: command issued <10s after error
 - Intervene: Block action, require pause
 - Mechanism: Prevent pattern from activating before data gathered
 
-**2. Sustained Attention (Verbosity escalation)**
+**2. Sustained Attention (Verbosity Escalation)**
 - Detect: repeated failures without increasing diagnostic depth
 - Intervene: Force verbose mode, require reading output
 - Mechanism: Strengthen accurate data edges before allowing action
 
-**3. Hyperactivity Management (No batching during errors)**
+**3. Hyperactivity Management (No Batching During Errors)**
 - Detect: multiple commands queued while in error state
 - Intervene: Block parallel execution, require sequential
 - Mechanism: Ensure each action's results inform next action
