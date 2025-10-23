@@ -450,7 +450,7 @@ memory_event:
   edge_strength: 0.8  # initially strong
 
 time_passes:
-  timestamp: t0 + 6months
+  timestamp: t0 + 6 months
   edge_strength: 0.3  # faded
 
 pattern_activation:
