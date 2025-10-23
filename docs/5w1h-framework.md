@@ -385,6 +385,278 @@ if project_type != config_strictness:
 
 ---
 
+## WHY (Deep Dive): The 5 Whys Technique
+
+**Question:** Why is this *really* happening? (Root cause analysis)
+
+The "5 Whys" technique drills down from symptom to root cause by repeatedly asking "why" about each answer.
+
+### The Technique
+
+```
+Problem: [Observable symptom]
+  ↓ Why?
+Answer 1: [Immediate cause]
+  ↓ Why?
+Answer 2: [Underlying cause]
+  ↓ Why?
+Answer 3: [Deeper cause]
+  ↓ Why?
+Answer 4: [Systemic cause]
+  ↓ Why?
+Answer 5: [Root cause]
+```
+
+**Rule:** Stop when you reach something actionable that prevents recurrence.
+
+### Real Example 1: Hidden .pth File
+
+```
+Problem: Import fails with ModuleNotFoundError
+
+Why? → Package not in sys.path
+
+Why? → .pth file not being processed
+
+Why? → Python skipping it as "hidden"
+
+Why? → site-packages directory has UF_HIDDEN flag
+
+Why? → [Unknown - requires investigation]
+        Could be: venv creation tool set it
+                  Inherited from parent directory
+                  Specific to mise's Python build
+
+Root Cause: Filesystem attribute on directory
+Actionable: Check for hidden flag after venv creation
+Prevention: Add to venv creation workflow
+```
+
+**Lessons:**
+- Stop at "Python skipping as hidden" = symptom fixing (clear the flag)
+- Continue to "directory has flag" = root cause (why does directory have it?)
+- Investigation needed: Why does mise/venv set this flag?
+
+### Real Example 2: Black Formatting Loop
+
+```
+Problem: CI keeps failing on Black formatting
+
+Why? → File formatting doesn't match Black's rules
+
+Why? → Manual edits don't match what Black wants
+
+Why? → Guessing at formatting instead of using Black
+
+Why? → Not following directive: "use the tool, don't guess"
+
+Why? → Directive not surfaced at the right time
+
+Root Cause: No intervention when loop starts
+Actionable: Detect 2+ manual edits to .py after Black CI failure
+Prevention: Anastrophex pattern detection + intervention
+```
+
+### Real Example 3: Mypy 77 Errors
+
+```
+Problem: 77 mypy errors from external library
+
+Why? → Library has no type stubs
+
+Why? → External package (CrewAI) doesn't provide types
+
+Why? → Config requires strict typing for all imports
+
+Why? → Config copied from production package (mnemex)
+
+Why? → Didn't match config strictness to project type
+
+Root Cause: Config mismatch (production config on test project)
+Actionable: Check project type before setting mypy strictness
+Prevention: Template configs by project type, not copy-paste
+```
+
+### Real Example 4: Venv Using Wrong Python
+
+```
+Problem: Package installed but won't import
+
+Why? → .pth file not being processed
+
+Why? → uv's Python has .pth file bugs
+
+Why? → Venv created with uv's Python, not mise's
+
+Why? → `python -m venv` used first Python in PATH
+
+Why? → Didn't use explicit path to mise's Python
+
+Root Cause: Relying on shell PATH resolution instead of explicit paths
+Actionable: Use $(mise where python)/bin/python3 -m venv .venv
+Prevention: Always use explicit paths with version managers
+```
+
+### How Deep to Go
+
+**Stop when you find:**
+1. Something you can fix permanently
+2. Something that prevents recurrence
+3. A systemic issue, not a one-time glitch
+4. A decision point where you chose wrong option
+
+**Don't stop when you find:**
+1. Just a symptom
+2. Something you can only work around
+3. An effect, not a cause
+4. "It just happened" (keep asking why)
+
+### 5 Whys + 5W+1H Integration
+
+The frameworks work together:
+
+```
+WHAT: Command failed
+  ↓
+Add -v verbosity → See error message
+  ↓
+WHERE: Verify we're in right location → We are
+  ↓
+WHEN: Check if anything changed → Switched to mise yesterday
+  ↓
+WHY (5 Whys):
+  Why fail? → Wrong Python
+  Why wrong Python? → Venv created with uv's Python
+  Why uv's Python? → PATH pointed to it
+  Why PATH wrong? → Didn't use explicit mise path
+  Why not explicit? → Assumed `python` command was mise
+
+Root Cause: Shell PATH assumptions instead of explicit paths
+  ↓
+HOW: Mental model: "Explicit paths over shell resolution"
+     Playbook: Always verify `which` matches `mise where`
+```
+
+### Template for 5 Whys
+
+When stuck on a problem:
+
+```markdown
+## 5 Whys Analysis
+
+**Problem:** [Observable symptom]
+
+**Why 1:** Why is [problem] happening?
+**Answer 1:** [Immediate cause]
+
+**Why 2:** Why is [answer 1] happening?
+**Answer 2:** [Underlying cause]
+
+**Why 3:** Why is [answer 2] happening?
+**Answer 3:** [Deeper cause]
+
+**Why 4:** Why is [answer 3] happening?
+**Answer 4:** [Systemic cause]
+
+**Why 5:** Why is [answer 4] happening?
+**Answer 5:** [Root cause]
+
+**Root Cause:** [Final answer]
+**Actionable Fix:** [What to do now]
+**Prevention:** [How to prevent in future]
+**Mental Model:** [What rule to remember]
+```
+
+### Anastrophex Integration
+
+**When to trigger 5 Whys:**
+```python
+if same_symptom_fix_attempted >= 3:
+    start_5_whys_analysis()
+
+if workaround_applied_but_not_root_cause:
+    suggest_5_whys()
+```
+
+**How to guide the user:**
+```
+⚠️ You've fixed the symptom 3 times but it keeps recurring
+
+Let's do 5 Whys to find the root cause:
+
+Problem: [Import fails]
+Why? [Your answer]
+  ↓
+Why? [Next why based on your answer]
+  ↓
+... (continue until root cause)
+
+Then: Fix the root cause, not the symptom
+```
+
+**Recording in mnemex:**
+```yaml
+pattern: import-failure-hidden-pth
+five_whys:
+  - why: "Package not in sys.path"
+  - why: ".pth file not processed"
+  - why: "Python skipping as hidden"
+  - why: "Directory has UF_HIDDEN flag"
+  - why: "Unknown - venv creation set it"
+root_cause: "Filesystem attribute on directory"
+symptom_fix: "chflags nohidden (fixes once)"
+root_cause_fix: "Check flag after venv creation (prevents recurrence)"
+prevention: "Add to venv creation workflow"
+```
+
+### Common Pitfalls
+
+**❌ Stopping too early:**
+```
+Problem: Import fails
+Why? → .pth file not processed
+Fix: Manually add to sys.path
+
+[STOPPED AT SYMPTOM - will recur next time]
+```
+
+**✓ Going deep enough:**
+```
+Problem: Import fails
+Why? → .pth file not processed
+Why? → Hidden flag set
+Why? → Directory created with flag
+Why? → venv tool sets it
+Fix: Change venv creation process
+
+[REACHED ROOT - won't recur]
+```
+
+**❌ Asking "how" instead of "why":**
+```
+Problem: Import fails
+How did this happen? → I created a venv
+[WRONG QUESTION - doesn't lead to root cause]
+```
+
+**✓ Focusing on causation:**
+```
+Problem: Import fails
+Why did this happen? → .pth not processed
+Why wasn't it processed? → Hidden flag
+[RIGHT QUESTIONS - follows causal chain]
+```
+
+### Benefits
+
+1. **Prevents recurrence:** Fix root cause, not symptoms
+2. **Saves time:** One deep fix > many surface fixes
+3. **Builds knowledge:** Root causes become prevention rules
+4. **Complements 5W+1H:** WHO/WHAT/WHERE/WHEN gather data, WHY analyzes it
+5. **Creates playbooks:** Root cause patterns → mnemex entries
+
+---
+
 ## HOW: Strategy and Mental Models
 
 **Question:** How should I think about this? How do similar problems get solved?
