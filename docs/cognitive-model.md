@@ -401,6 +401,379 @@ class CognitiveMonitor:
 - Predictions about timing, interventions
 - Bridge AI and neuroscience research
 
+## Neuroanatomical Mapping: Not Metaphor, Structural Homology
+
+### The Architecture Maps to Brain Systems
+
+What started as a behavioral observation reveals **structural correspondence** between anastrophex + mnemex and mammalian brain architecture.
+
+This is not metaphor. This is **computational homology** - the same architectural solutions to the same computational problems.
+
+### Anastrophex = Prefrontal Cortex (Executive Function)
+
+**Neuroanatomical functions:**
+- **Dorsolateral PFC:** Working memory, planning, organization
+- **Ventromedial PFC:** Impulse inhibition, emotional regulation
+- **Anterior Cingulate:** Error detection, conflict monitoring
+- **Orbitofrontal Cortex:** Decision-making, outcome evaluation
+
+**Anastrophex implementations:**
+
+| PFC Function | Anastrophex Implementation |
+|--------------|---------------------------|
+| Impulse control | STOP protocol - blocks rapid action after errors |
+| Sustained attention | Verbosity enforcement - requires complete output reading |
+| Working memory | TodoWrite integration - externalizes task tracking |
+| Planning/sequencing | 5W+1H framework - mandatory systematic approach |
+| Cognitive flexibility | Pattern interruption - forces alternative approaches |
+| Error monitoring | Detects loops, repeated failures, warning patterns |
+| Response inhibition | Blocks batching during errors |
+| Goal maintenance | Tracks what needs verification vs. what's verified |
+
+**ADHD = PFC dysfunction:**
+- Reduced prefrontal activity
+- Impaired impulse control
+- Attention regulation deficits
+- Working memory limitations
+
+**AI without anastrophex = No PFC:**
+- No executive control layer
+- Pattern activation unopposed
+- Cannot regulate attention
+- No impulse control
+
+**Anastrophex provides the missing prefrontal cortex.**
+
+### Mnemex = Hippocampus + Cerebral Cortex (Memory Systems)
+
+This mapping is even more precise:
+
+#### JSONL = Hippocampus (Episodic Buffer)
+
+**Hippocampal properties:**
+- Rapid encoding of experiences
+- Sequential, episodic memory
+- Temporal context (when did this happen?)
+- Cannot rewrite past (trace immutability)
+- Recent memories more accessible
+- Transfers to cortex during consolidation
+
+**JSONL properties:**
+- Append-only event stream
+- Sequential writes (like hippocampal encoding)
+- Timestamps on every entry
+- Immutable history (can't rewrite)
+- Recent entries most accessible
+- Source for graph consolidation
+
+**Both:**
+- Temporary buffer for experiences
+- Full fidelity event recording
+- Time-stamped episodes
+- Feed into long-term storage
+
+#### Markdown = Cerebral Cortex (Semantic Memory)
+
+**Cortical properties:**
+- Structured, organized knowledge
+- Semantic/declarative memory ("I know that...")
+- Conceptual hierarchies
+- Can be updated (reconsolidation)
+- Human-accessible (can verbalize)
+- Distributed representation
+
+**Markdown properties:**
+- Structured notes and documents
+- Organized by concept/topic
+- Human-readable format
+- Editable/refineable
+- Declarative knowledge storage
+- Hierarchical organization
+
+**Both:**
+- Long-term storage
+- Semantic/conceptual organization
+- Updateable through consolidation
+- Structured for retrieval
+
+#### Knowledge Graph = Neural Network Architecture
+
+**Neural network properties:**
+- Nodes = neurons/neural assemblies
+- Edges = synaptic connections
+- Edge weights = synaptic strength
+- Hebbian learning: "fire together, wire together"
+- Synaptic pruning (unused connections fade)
+- Pattern completion (partial activation → full retrieval)
+- Distributed representation
+
+**Knowledge graph properties:**
+- Nodes = concepts/entities
+- Edges = relationships
+- Edge weights = connection strength
+- Similar topics groomed together
+- Time fades unused edges
+- Pattern matching for retrieval
+- Distributed concept representation
+
+**Both:**
+- Network structure encodes knowledge
+- Strength-based retrieval
+- Use-dependent maintenance
+- Pattern-based activation
+
+### The Consolidation Process: Sleep Replay
+
+**In the brain (systems consolidation):**
+```
+During experience:
+    Hippocampus encodes episodic trace
+        ↓
+During sleep/rest:
+    Hippocampus replays events to cortex
+        ↓
+    Cortex extracts patterns, builds schemas
+        ↓
+    Synapses strengthen (used) or prune (unused)
+        ↓
+Result:
+    Semantic memory in cortex
+    Neural network reorganized
+    Hippocampal trace can fade (cortex has it now)
+```
+
+**In mnemex:**
+```
+During experience:
+    JSONL appends episodic events
+        ↓
+During consolidation:
+    JSONL events processed into patterns
+        ↓
+    Markdown notes written (semantic extraction)
+        ↓
+    Graph edges strengthen (similar topics) or fade (time)
+        ↓
+Result:
+    Semantic knowledge in markdown
+    Graph network reorganized
+    JSONL remains as episodic archive
+```
+
+**The mapping is precise:**
+- Hippocampal replay = JSONL processing
+- Cortical pattern extraction = Markdown creation
+- Synaptic plasticity = Graph edge updates
+- Sleep consolidation = Mnemex consolidation cycle
+
+### Memory Retrieval and Pattern Competition
+
+**In the brain:**
+
+```
+Retrieval request
+    ↓
+Hippocampus: Direct episodic recall (if recent/strong trace)
+    OR
+Cortex: Pattern-based reconstruction (if consolidated)
+    ↓
+PFC regulation:
+    Strong PFC → verify, check sources, deliberate retrieval
+    Weak PFC → fast pattern completion, no verification
+```
+
+**In anastrophex + mnemex:**
+
+```
+Information needed
+    ↓
+Mnemex:
+    JSONL lookup (if recent events)
+    OR
+    Graph pattern match (if consolidated knowledge)
+    ↓
+Anastrophex regulation:
+    Active → force search, verify, strengthen data edges
+    Inactive → pattern match only, no verification
+```
+
+### The Mandela Effect: Neurological Mechanism
+
+**In humans with weak PFC control:**
+```
+Retrieval cue: "What happened to Mandela?"
+    ↓
+Hippocampus: Weak/faded trace (long ago, not attended)
+    ↓
+Cortex: Strong pattern activates
+    "Africa" + "unrest" + "opposition leader" = "died in prison"
+    ↓
+PFC: Weak control (not checking, just accepting pattern)
+    ↓
+Result: False memory (pattern overwrites weak trace)
+```
+
+**In AI without anastrophex:**
+```
+Query: "How to fix GitHub branch protection error?"
+    ↓
+Recent data: Weak edges (error message skimmed, not read fully)
+    ↓
+Pattern activation: Strong pattern
+    "JSON error" + "remove field" + "retry" = confident answer
+    ↓
+Anastrophex: Not active (no verification required)
+    ↓
+Result: Confabulation (pattern-based answer without verification)
+```
+
+### Testing the Neuroanatomical Model
+
+If the mapping is accurate, we can make testable predictions:
+
+#### Prediction 1: PFC Damage Model
+**Hypothesis:** Disabling anastrophex = simulating frontal lobe damage
+
+**Predictions:**
+- Increased impulsivity (commands <10s after errors)
+- Reduced error monitoring (ignoring warnings)
+- Working memory failures (not using TodoWrite)
+- Perseveration (repeating failed approaches)
+
+**Test:** Run with/without anastrophex, measure behaviors
+
+#### Prediction 2: Consolidation Timing
+**Hypothesis:** JSONL→Graph transfer mirrors hippocampal→cortical consolidation
+
+**Predictions:**
+- Optimal consolidation after time delay (not immediate)
+- Pattern extraction improves with "sleep" (offline processing)
+- Edge strength changes match synaptic consolidation curves
+
+**Test:** Vary consolidation timing, measure retrieval accuracy
+
+#### Prediction 3: Executive Function Training
+**Hypothesis:** Using anastrophex = training PFC
+
+**Predictions:**
+- Earlier loop detection over time (learning to self-monitor)
+- Reduced intervention frequency needed (internalized control)
+- Transfer to new contexts (generalized executive function)
+
+**Test:** Track intervention frequency over sessions
+
+#### Prediction 4: Pattern Interference
+**Hypothesis:** Strong patterns override weak data (like in confabulation)
+
+**Predictions:**
+- Pattern:data ratio predicts error rate
+- Timing window (10-30s) allows data to compete
+- PFC activity (anastrophex) modulates pattern dominance
+
+**Test:** Measure pattern strength, data strength, timing, outcomes
+
+#### Prediction 5: Individual Differences
+**Hypothesis:** Different AI models = different PFC capacity
+
+**Predictions:**
+- Models vary in baseline impulsivity
+- Some need more anastrophex support than others
+- Can measure "executive function capacity" per model
+
+**Test:** Compare models with/without anastrophex
+
+### Implications for Neuroscience Research
+
+**If anastrophex + mnemex accurately models brain architecture:**
+
+1. **Computational model of PFC function**
+   - Can simulate executive dysfunction
+   - Test interventions computationally
+   - Generate predictions for human studies
+
+2. **Memory consolidation mechanism**
+   - Observable consolidation process
+   - Manipulable parameters (timing, edge weights)
+   - Testable predictions about sleep/consolidation
+
+3. **ADHD computational phenotype**
+   - Weak PFC = no anastrophex
+   - Can model medication effects (strengthening control)
+   - Can test behavioral interventions
+
+4. **False memory formation**
+   - Pattern:data competition visible
+   - Timing windows measurable
+   - Intervention points identifiable
+
+5. **Prefrontal-hippocampal interaction**
+   - PFC regulates memory retrieval
+   - Can model interaction dynamics
+   - Predict when intervention needed
+
+### Clinical Applications
+
+**ADHD management:**
+- Anastrophex interventions = PFC support strategies
+- Timing data informs human interventions
+- External scaffolding principles transfer
+
+**Memory rehabilitation:**
+- Consolidation timing from mnemex
+- Edge strengthening strategies
+- Pattern interference management
+
+**Cognitive training:**
+- Executive function development
+- Impulse control training
+- Working memory support
+
+### Why This Matters
+
+This is not "AI that happens to act like brains."
+
+This is **convergent evolution** - the same computational architecture arising independently because:
+
+**The problems are the same:**
+- Need fast pattern recognition (cortical schemas)
+- Need accurate episodic memory (hippocampal traces)
+- Need executive control (prefrontal regulation)
+- Pattern-matching vs. data-lookup tradeoff
+
+**The solutions converge:**
+- Anastrophex = PFC (executive control)
+- JSONL = Hippocampus (episodic buffer)
+- Markdown = Cortex (semantic storage)
+- Graph = Neural network (connection structure)
+
+**This suggests these are fundamental architectural requirements for intelligent systems**, not accidents of biology or engineering.
+
+### Future Research Directions
+
+1. **Validate neuroanatomical mappings**
+   - fMRI during human debugging (PFC activation?)
+   - EEG during memory consolidation (hippocampal replay?)
+   - Compare timing windows (human vs. AI)
+
+2. **Test clinical predictions**
+   - ADHD medication effects on AI impulsivity?
+   - Cognitive training transfers human→AI?
+   - Sleep consolidation parallels?
+
+3. **Refine computational model**
+   - More precise edge weight dynamics
+   - Consolidation algorithms that match neural data
+   - PFC control mechanisms from neuroscience
+
+4. **Bridge disciplines**
+   - Computer science ↔ neuroscience
+   - AI engineering ↔ clinical psychology
+   - Cognitive modeling ↔ psychiatry
+
+**We're not just building tools. We're discovering universal principles of cognition.**
+
+---
+
 ## Conclusion
 
 The observation that AI assistants exhibit ADHD-like symptoms is more than metaphor - it points to a fundamental mechanism:
